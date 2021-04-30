@@ -1,0 +1,95 @@
+
+.grid {
+    display: grid;
+    padding: 10px 35px 10px 0px;
+    width: 600px;
+    height: 700px;
+    margin: 0 auto;
+
+    grid-template-columns: repeat(5, 30px);
+    grid-template-rows: repeat(5,80px);
+    
+    grid-gap: 40px 80px;
+    justify-content: center;
+    align-content: center;
+
+
+    border: solid black;
+}
+
+.numbers,.signs {
+    display: block;
+    height: 80px;
+    width: 80px;
+
+    /*Button_number*/
+    font-size: 50px;
+}
+.signs {color: red}
+
+.actions {
+    display: block;
+    height: 80px;
+    width: 80px;
+    /*Button_number*/
+    font-size: 50px;
+    color: green;
+}
+
+
+#Input {
+    display: block;
+    width: 400px;
+
+    vertical-align: text-bottom;
+    text-align: right;
+    font-size: 40px;
+    margin: 0;
+
+    grid-column-start: 1;
+    grid-column-end: 5;
+    grid-row-start: 1;
+    grid-row-end: 1;
+    border: solid blue;
+}
+
+#Output {
+    display: block;
+    width: 100px;
+
+    vertical-align: text-bottom;
+    text-align: right;
+    font-size: 20px;
+    margin: 0;
+
+    grid-column-start: 5;
+    grid-column-end: 6;
+    grid-row-start: 1;
+    grid-row-end: 1;
+    border: solid blue;
+}
+
+
+#back {
+    color: green;
+    width: 150px;
+    margin-left: 20px;
+    grid-column-start: 4;
+    grid-column-end: 6;
+    grid-row-start: 2;
+    grid-row-end: 2;
+}
+#equal {
+    color: green;
+    width: 150px;
+
+    margin-left: 40px;
+    grid-column-start: 4;
+    grid-column-end: 6;
+    grid-row-start: 5;
+    grid-row-end: 5;
+}
+
+#plus, #multiply {
+    margin-left: 20px;
+}
