@@ -22,11 +22,31 @@ function Equal() {
             resolve();
         }, 500)
     });
-
-
-
-
 }
+let old_photo;
+let width;
+let height;
+document.querySelectorAll('input').forEach(item => {
+    item.addEventListener('pointerenter', (event) => {
+        old_photo = item.src;
+        width = item.style.width;
+        height = item.style.height;
+
+        item.style.position = "relative"
+        item.style.width = "200px";
+        item.style.height = "200px";
+        item.src="Photos/JustPush.jpg"
+
+
+    });
+    item.addEventListener('pointerleave', (event) => {
+        item.style.position = "static"
+        item.src=old_photo
+        item.style.width = width;
+        item.style.height = height;
+    });
+})
+
 
 
 document.getElementById("1").onclick = function() {One()};
