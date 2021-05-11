@@ -1,0 +1,18 @@
+.icons {
+    display: block;
+    height: 250px;
+    width: 250px;
+    object-fit: scale-down;
+}
+
+#calculatorLink {
+    display: block;
+    height: 250px;
+    width: 250px;
+}
+
+h2 {
+    display: inline-block;
+    margin: 10px 0 0 60px;
+    word-spacing: 190px;
+}

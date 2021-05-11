@@ -1,0 +1,27 @@
+{
+  "name": "webcalculator",
+  "version": "1.0.0",
+  "description": "Calculator for web",
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon server.js",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SASanchezz/WebCalculator.git"
+  },
+  "keywords": [
+    "node",
+    "calculator"
+  ],
+  "author": "Alexander Hrachov <sgrachov42@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SASanchezz/WebCalculator/issues"
+  },
+  "homepage": "https://github.com/SASanchezz/WebCalculator#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}

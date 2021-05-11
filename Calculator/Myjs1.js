@@ -33,8 +33,8 @@ document.querySelectorAll('input').forEach(item => {
         height = item.style.height;
 
         item.style.position = "relative"
-        item.style.width = "200px";
-        item.style.height = "200px";
+        item.style.width = "150px";
+        item.style.height = "150px";
         item.src="Photos/JustPush.jpg"
 
 
