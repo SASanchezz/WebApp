@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <link rel = "stylesheet" href="css/StyleLog.css">
+    <%- include('./partials/bootstrap'); %>
+
+    <title>Create account</title>
+</head>
+<body>
+<div class="login-page">
+    <div class="form">
+        <form action="/registration" method = "POST" class="login-form">
+            <input type="text" placeholder="name" name="UserName"/>
+            <input type="text" placeholder="email address" name="email"/>
+            <input type="password" placeholder="password" name="password1"/>
+            <input type="password" placeholder="password" name="password2"/>
+            <button type="submit" name="login-button">Create</button>
+
+            <p class="message">Already registered? <a href="/">Sign In</a></p>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>
+

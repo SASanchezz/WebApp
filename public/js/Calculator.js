@@ -35,7 +35,7 @@ document.querySelectorAll('input').forEach(item => {
         item.style.position = "relative"
         item.style.width = "150px";
         item.style.height = "150px";
-        item.src="Photos/JustPush.jpg"
+        item.src="../Photos/CPhotos/JustPush.jpg"
 
 
     });

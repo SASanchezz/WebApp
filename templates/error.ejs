@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('./partials/bootstrap'); %>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <title> <%= error.message %> </title>
+</head>
+<body>
+
+<p>The error occurred: <%= error.status%></p>
+
+<p> <%=error.message %> </p>
+
+</body>
+</html>
+

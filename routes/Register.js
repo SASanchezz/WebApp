@@ -1,0 +1,58 @@
+const express = require("express")
+const router = express.Router()
+const HttpError = require('../error/HttpError')
+
+const UserDB = require("../MongoApp/DB").UserModel
+const Save = require("../MongoApp/DB").Save
+
+const ValidateEmail = require('./validators').ValidateEmail;
+const ValidatePassword = require('./validators').ValidatePassword;
+const ValidateUserName = require('./validators').ValidateUserName;
+
+
+router.get('/Create', (req, res, next) => {
+    if (!Authorized) {
+        res.render('registration', {
+            title: 'Create account',
+            active: 'create'
+        })
+    } else next(new HttpError(404, 'Not Authorized'));
+})
+
+router.post('/registration', async (req, res, next) => {
+    if (!Authorized) {
+        const userName = req.body.UserName
+        const email = req.body.email
+        const Password1 = req.body.password1
+        const Password2 = req.body.password2
+
+
+        if (userName.length > 0 && Password1.length > 0 && email.length > 0 && Password2.length > 0) {
+
+
+            if (ValidateEmail(email) && ValidateUserName(userName) && ValidatePassword(Password1)) {
+                if (Password1 === Password2) {
+                    UserDB.count({email: email}, (err, count) => {
+                        if (err) throw err;
+
+                        if (count === 0) {
+                            const unit = new UserDB({
+                                name: userName,
+                                email: email,
+                                password: Password1
+                            })
+                            Save(unit);
+                            res.redirect('/');
+                        } else res.redirect(req.get('referer'));
+                    })
+                } else {
+                    res.redirect(req.get('referer'));
+                }
+            } else res.redirect(req.get('referer'));
+
+        } else res.redirect(req.get('referer'));
+
+    } else next(new HttpError(404, 'Not Authorized'));
+})
+
+module.exports = router
