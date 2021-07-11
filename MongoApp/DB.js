@@ -26,8 +26,10 @@ const userScheme = new Schema({
     }
 });
 
-userScheme.methods.comparePasswords = function (password, hash) {
-    return bcrypt.compareSync(password, hash);
+userScheme.methods.checkPassword = function (password) {
+    console.log(this.hashedPassword);
+    console.log(password);
+    return this.encryptPassword(password)===this.hashedPassword;
 };
 
 userScheme.method('encryptPassword',  function (password) {
@@ -57,19 +59,8 @@ mongoose.connect(url, { // mongodb+srv://Sanchez:7539512Sanchez@cluster0.vgvcx.m
 }).then(r => console.log('BD Connected'));
 
 
-const UserModel = mongoose.model("User", userScheme);
 
 
 
 
-function Save (Unit) {
-    Unit.save(function(err){
-
-        if(err) return console.log(err);
-        console.log("Сохранен объект", Unit);
-    });
-}
-
-
-
-module.exports = {UserModel, Save}
+module.exports = mongoose.model("User", userScheme);

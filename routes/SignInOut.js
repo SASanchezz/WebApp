@@ -2,7 +2,7 @@ const express = require("express")
 const router = express.Router()
 const HttpError = require('../error/HttpError')
 
-const UserDB = require("../MongoApp/DB").UserModel
+const UserDB = require("../MongoApp/DB")
 
 
 router.get('/', (req, res, next) => {
@@ -28,7 +28,8 @@ router.post('/login', async (req, res, next) => {
                     throw err;
                 }
                 if(user){
-                    if (UserDB.model('User').schema.comparePasswords(Password, user.hashedPassword)) {
+                    if (user.checkPassword(Password)) {
+
                         Authorized = !Authorized
                         res.redirect('/Menu');
                     } else res.redirect(req.get('referer'));

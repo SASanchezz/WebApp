@@ -41,7 +41,11 @@ router.post('/registration', async (req, res, next) => {
                                 email: email,
                                 password: Password1
                             })
-                            Save(unit);
+                            unit.save(function(err){
+                                if(err) return console.log(err);
+                                console.log("Сохранен объект", Unit);
+                            });
+
                             res.redirect('/');
                         } else res.redirect(req.get('referer'));
                     })
