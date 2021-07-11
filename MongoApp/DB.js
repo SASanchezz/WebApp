@@ -15,41 +15,48 @@ const userScheme = new Schema({
     },
     email: {
         type: String,
-        unique: true
+        unique: true,
+        required: true
     },
     hashedPassword: {
         type: String
     },
     salt: {
         type: String,
-        required: true
     }
 });
 
-userScheme.methods.checkPassword = function (password) {
-    console.log(this.hashedPassword);
-    console.log(password);
-    return this.encryptPassword(password)===this.hashedPassword;
-};
-
-userScheme.method('encryptPassword',  function (password) {
-    // return bcrypt.hashSync(password, bcrypt.genSaltSync(5), null);
-    bcrypt.genSalt(saltRounds, function(err, salt) {
-        if (err) return err;
-        bcrypt.hash(password, this.salt, function(err, hash) {
-            if (err) return err;
-            return hash;
-        });
+userScheme.methods.encryptPassword = function (password) {
+    bcrypt.hash(password, saltRounds, function(err, hash) {
+        return hash
     });
-});
+
+    // bcrypt.genSalt(saltRounds, function(err, salt) {
+    //     if (err) throw err;
+    //     bcrypt.hash(password, salt, function(err, hash) {
+    //         if (err) throw err;
+    //
+    //         console.log('hash in encrypt: '+hash);
+    //         return hash;
+    //     });
+    // });
+};
 
 userScheme.virtual('password')
     .set(function (password)  {
+
         this._plainPassword = password
-        this.salt = Math.random()+'';
+        this.salt = Math.random()+''
         this.hashedPassword = this.encryptPassword(password)
+        console.log('hash in userSheme'+this.encryptPassword(password))
     })
     .get(function () {return this._plainPassword})
+
+
+userScheme.methods.checkPassword = function (password) {
+
+    return bcrypt.compare(password, this.hashedPassword);
+};
 
 
 

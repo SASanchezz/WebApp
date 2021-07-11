@@ -2,8 +2,7 @@ const express = require("express")
 const router = express.Router()
 const HttpError = require('../error/HttpError')
 
-const UserDB = require("../MongoApp/DB").UserModel
-const Save = require("../MongoApp/DB").Save
+const UserDB = require("../MongoApp/DB")
 
 const ValidateEmail = require('./validators').ValidateEmail;
 const ValidatePassword = require('./validators').ValidatePassword;
@@ -41,9 +40,10 @@ router.post('/registration', async (req, res, next) => {
                                 email: email,
                                 password: Password1
                             })
+
                             unit.save(function(err){
                                 if(err) return console.log(err);
-                                console.log("Сохранен объект", Unit);
+                                console.log("Сохранен объект", unit);
                             });
 
                             res.redirect('/');
