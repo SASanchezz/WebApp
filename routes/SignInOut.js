@@ -4,9 +4,9 @@ const HttpError = require('../error/HttpError')
 
 const UserDB = require("../MongoApp/DB")
 
-UserDB.remove({}, () => {
-    console.log('deleted');
-})
+// UserDB.remove({}, () => {
+//     console.log('deleted');
+// })
 
 router.get('/', (req, res, next) => {
     if (!Authorized) {

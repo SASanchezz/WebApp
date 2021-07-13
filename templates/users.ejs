@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
     <%- include('./partials/bootstrap'); %>
@@ -8,7 +8,12 @@
 <body>
 <%- include('./partials/navbar'); %>
 
+<% Database.forEach(function (user) { console.log(user) %>
+<ul>
+    <li><%= user.name %> </li>
+</ul>
 
+<% }) %>
 
 
 </body>
