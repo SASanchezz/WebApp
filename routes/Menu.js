@@ -1,15 +1,16 @@
 const express = require("express")
 const router = express.Router()
 const HttpError = require('../error/HttpError')
+const AuthCheck = require('../Middleware/AuthCheck')
 
 
-router.get('/Menu', (req, res, next) => {
-    if (Authorized) {
+router.get('/Menu', AuthCheck, (req, res, next) => {
         res.render('index', {
             title: 'Main page',
-            active: 'main'
+            active: 'main',
+            userID: req.session.user
         })
-    } else next(new HttpError(404, 'Not Authorized'));
+
 })
 
 module.exports = router

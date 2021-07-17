@@ -2,7 +2,11 @@
 <html lang="en">
 <head>
     <%- include('./partials/bootstrap'); %>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <link rel="stylesheet" href="../css/ListStyle.css">
+
+<!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">-->
+
     <title> <%= title %> </title>
 </head>
 <body>
@@ -10,7 +14,7 @@
 
 <% Database.forEach(function (user) { console.log(user) %>
 <ul>
-    <li><%= user.name %> </li>
+    <li class="user-list"><%= user.name +' - '+ user.email%> </li>
 </ul>
 
 <% }) %>

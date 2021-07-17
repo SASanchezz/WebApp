@@ -1,7 +1,9 @@
 const express = require("express")
 const router = express.Router()
-const HttpError = require('../error/HttpError')
+const bcrypt = require('bcrypt')
 
+const HttpError = require('../error/HttpError')
+const AuthError = require('../error/AuthError')
 const UserDB = require("../MongoApp/DB")
 
 // UserDB.remove({}, () => {
@@ -14,7 +16,7 @@ router.get('/', (req, res, next) => {
             title: 'Login',
             active: 'login'
         })
-    } else next(new HttpError(404, 'Not Authorized'));
+    } else next(new AuthError('Not Authorized'));
 })
 
 
@@ -25,22 +27,20 @@ router.post('/login', async (req, res, next) => {
         const Password = req.body.password
 
         if (Email.length>0 && Password.length>0) {
-            console.log('Passed 1 !');
-            UserDB.findOne({email: Email}, (err, user) => {
-                if(err) {
-                    throw err;
-                }
-                if(user){
-                    if (user.checkPassword(Password)) {
+            UserDB.Authorize(Email, Password, (err, user) => {
 
-                        Authorized = !Authorized
-                        res.redirect('/Menu');
-                    } else res.redirect(req.get('referer'));
-                } else res.redirect(req.get('referer'));
+                if (err === 403) return res.redirect(req.get('referer'));
+                if (err) return next(err)
+
+                req.session.user = user._id
+                res.redirect('/Menu');
+
             })
+
         } else res.redirect(req.get('referer'));
-    } else next(new HttpError(404, 'Not Authorized'));
+    } else next(new AuthError('Not Authorized'));
 })
+
 
 
 

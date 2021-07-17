@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const bcrypt = require("bcrypt")
+const HttpError = require('../error/HttpError')
 
 const saltRounds = 10;
 
@@ -52,10 +53,25 @@ userScheme.pre('save', function (next) {
     });
 })
 
+userScheme.statics.Authorize = (email, password, callback) => {
+    UserDB.findOne({email: email}, (err, user) => {
+            if(err) {
+                throw err;
+            }
+            if(user){
 
-userScheme.methods.checkPassword = function (password) {
-    return bcrypt.compare(password, this.password);
-};
+                bcrypt.compare(password, user.password, (err, response) => {
+                    if (err) return callback(new HttpError(404, 'Something went wrong' ), null)
+                    if (!response) return callback(403, null)
+
+                    Authorized = !Authorized
+
+                    return callback(null, user)
+                })
+            } else return callback(403, null)
+        })
+}
+
 
 
 
@@ -68,4 +84,4 @@ mongoose.connect(url, { // mongodb+srv://Sanchez:7539512Sanchez@cluster0.vgvcx.m
 
 
 
-module.exports = mongoose.model("User", userScheme);
+const UserDB = module.exports = mongoose.model("User", userScheme);

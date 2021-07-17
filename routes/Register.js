@@ -42,7 +42,7 @@ router.post('/registration', async (req, res, next) => {
                             })
 
                             unit.save(function(err){
-                                if(err) return console.log(err);
+                                if(err) return next(err);
                                 console.log("Сохранен объект", unit);
                             });
 
