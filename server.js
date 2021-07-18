@@ -22,21 +22,17 @@ async function start(){
         secret: '_Sanchez_',
         key: 'SomeKey',
         cookie: {
-            secure: true,
+            // secure: true,
             path: '/',
             httpOnly: true,
-            maxAge: null
+            maxAge: 2 * 60 * 1000
         },
         resave: false,
         saveUninitialized: false,
         store: MongoStore.create({mongoUrl: "mongodb://localhost:27017/mydb"})
     }))
-    app.use(cookieParser())
 
-    // app.use(function (req, res, next) {
-    //     req.session.numberOfVisits = req.session.numberOfVisits + 1 || 1 ;
-    //     console.log('Visits: ' + req.session.numberOfVisits);
-    // })
+    app.use(cookieParser())
 
     Routes(app);
 

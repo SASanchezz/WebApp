@@ -19,7 +19,6 @@ router.get('/Create', (req, res, next) => {
 })
 
 router.post('/registration', async (req, res, next) => {
-    if (!Authorized) {
         const userName = req.body.UserName
         const email = req.body.email
         const Password1 = req.body.password1
@@ -56,7 +55,6 @@ router.post('/registration', async (req, res, next) => {
 
         } else res.redirect(req.get('referer'));
 
-    } else next(new HttpError(404, 'Not Authorized'));
 })
 
 module.exports = router

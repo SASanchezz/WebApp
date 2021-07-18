@@ -11,12 +11,10 @@ const UserDB = require("../MongoApp/DB")
 // })
 
 router.get('/', (req, res, next) => {
-    if (!Authorized) {
         res.render('login', {
             title: 'Login',
             active: 'login'
         })
-    } else next(new AuthError('Not Authorized'));
 })
 
 
