@@ -14,12 +14,18 @@
             <li class="nav-item">
                 <a class="nav-link <% if (active === 'Users') { %>active<% } %>" href="Users">Users</a>
             </li>
-<!--            <li class="nav-item">-->
-<!--                <a class="nav-link disabled" href="#">Disabled</a>-->
-<!--            </li>-->
+
             <li class="nav-item">
                 <p class="nav-link disabled"><%= userID%></p>
             </li>
+
+            <li class="nav-item">
+                <form action="/logout" method = "POST">
+                    <button type="submit" name="login-button" style="align-self: end" <!--class="nav-link disabled"-->>Logout</button>
+                </form>
+            </li>
+
+
         </ul>
     </div>
 </nav>

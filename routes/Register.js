@@ -10,12 +10,10 @@ const ValidateUserName = require('./validators').ValidateUserName;
 
 
 router.get('/Create', (req, res, next) => {
-    if (!Authorized) {
         res.render('registration', {
             title: 'Create account',
             active: 'create'
         })
-    } else next(new HttpError(404, 'Not Authorized'));
 })
 
 router.post('/registration', async (req, res, next) => {
