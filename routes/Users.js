@@ -2,10 +2,10 @@ const express = require("express")
 const router = express.Router()
 const HttpError = require('../error/HttpError')
 const UserDB = require("../MongoApp/DB")
+const AuthCheck = require('../Middleware/AuthCheck')
 
 
-router.get('/users', (req, res, next) => {
-    if (Authorized) {
+router.get('/users', AuthCheck, (req, res, next) => {
 
     UserDB.find({},  function (err, docs) {
         if (err) next(err)
@@ -17,7 +17,6 @@ router.get('/users', (req, res, next) => {
         })
     })
 
-    } else next(new HttpError(404, 'Not Authorized'));
 
 
 

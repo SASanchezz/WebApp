@@ -20,9 +20,10 @@
             </li>
 
             <li class="nav-item">
-                <form action="/logout" method = "POST">
-                    <button type="submit" name="login-button" style="align-self: end" <!--class="nav-link disabled"-->>Logout</button>
-                </form>
+<!--                <a class="nav-link active" href="" onclick="$('<form method=POST action=/logout>').submit();return false">Logout</a>-->
+                <form id="logout" action="/logout" method = "POST"></form>
+                <a class="nav-link active" onclick="document.getElementById('logout').submit();" >Logout</a>
+<!--                    <button type="submit" name="login-button" style="align-self: end" >Logout</button>-->
             </li>
 
 

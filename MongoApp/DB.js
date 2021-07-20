@@ -74,8 +74,7 @@ userScheme.statics.Authorize = (email, password, callback) => {
 
 
 
-
-mongoose.connect(url, { // mongodb+srv://Sanchez:7539512Sanchez@cluster0.vgvcx.mongodb.net/WebApp
+global.db = mongoose.connect(url, { // mongodb+srv://Sanchez:7539512Sanchez@cluster0.vgvcx.mongodb.net/WebApp
     useUnifiedTopology: true,
     useNewUrlParser: true
 }).then(r => console.log('BD Connected'));

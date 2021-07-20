@@ -11,14 +11,15 @@
 </head>
 <body>
 <%- include('./partials/navbar'); %>
-
-<% Database.forEach(function (user) { console.log(user) %>
 <ul>
-    <li class="user-list"><%= user.name +' - '+ user.email%> </li>
-</ul>
+<% Database.forEach(function (user) { %>
+    <form action="/delete/<%=user._id%>" method = "POST">
+        <%console.log('user id: '+`/delete/${user._id}`)%>
 
+        <li class="user-list"><%= user.name +' - '+ user.email%> <button type="submit">X</button> </li>
+    </form>
 <% }) %>
-
+</ul>
 
 </body>
 </html>

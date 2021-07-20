@@ -28,7 +28,8 @@ router.post('/login', async (req, res, next) => {
                 if (err) return next(err)
 
 
-                req.session.user = user._id
+                res.locals.userID = req.session.user = user._id
+
                 res.redirect('/Menu');
 
             })
