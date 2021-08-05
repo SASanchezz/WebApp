@@ -2,7 +2,7 @@ const express = require("express")
 const router = express.Router()
 const HttpError = require('../error/HttpError')
 
-const UserDB = require("../MongoApp/DB")
+const UserDB = require("../Mongo/UserDB")
 
 const ValidateEmail = require('./validators').ValidateEmail;
 const ValidatePassword = require('./validators').ValidatePassword;
@@ -10,7 +10,7 @@ const ValidateUserName = require('./validators').ValidateUserName;
 
 
 router.get('/Create', (req, res, next) => {
-        res.render('registration', {
+        res.render('Register', {
             title: 'Create account',
             active: 'create'
         })

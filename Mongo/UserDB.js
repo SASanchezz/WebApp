@@ -3,13 +3,18 @@ const Schema = mongoose.Schema;
 const bcrypt = require("bcrypt")
 const HttpError = require('../error/HttpError')
 
+const config = require('../config/config')
+
 const saltRounds = 10;
 
 // Connection URL
-const url = "mongodb://localhost:27017/mydb";
+const url = config.db;
 
 // Schema for our collection
 const userScheme = new Schema({
+    // _id: {
+    //     type: String
+    // },
     name: {
         type: String,
         required: true
