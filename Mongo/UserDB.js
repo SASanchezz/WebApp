@@ -69,8 +69,6 @@ userScheme.statics.Authorize = (email, password, callback) => {
                     if (err) return callback(new HttpError(404, 'Something went wrong' ), null)
                     if (!response) return callback(403, null)
 
-                    Authorized = !Authorized
-
                     return callback(null, user)
                 })
             } else return callback(403, null)

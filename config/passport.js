@@ -1,31 +1,46 @@
 const User = require('../Mongo/UserDB')
 const config = require('./config')
+const path = require('path')
+const logger = require('../logging/logger')(path.join(__filename))
+const bcrypt = require("bcrypt")
 
 const JwtStrategy = require('passport-jwt').Strategy,
     ExtractJwt = require('passport-jwt').ExtractJwt;
 
 module.exports = function (passport) {
-    const opts = {}
-    console.log('here');
-    opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
-    opts.secretOrKey = config.secret;
-
+    const opts = {
+        jwtFromRequest: JWTExtractor,
+        secretOrKey: config.secret,
+    }
     //Local server
     // opts.issuer = 'accounts.examplesoft.com';
     // opts.audience = 'yoursite.net';
     //Local server
 
-    passport.use(new JwtStrategy(opts, function(jwt_payload, done) {
-        User.findOne({_id: jwt_payload.sub}, function(err, user) {
+    passport.use('jwt', new JwtStrategy(opts, (jwt_payload, done) => {
+        User.findOne({email: jwt_payload.email}, function(err, user) {
             if (err) {
-                return done(err, false);
+                done(err, false);
             }
             if (user) {
-                return done(null, user);
+
+
+                done(null, user);
             } else {
-                return done(null, false);
-                // or you could create a new account
+                logger.info('failure')
+
+                done(null, false);
             }
         });
     }));
 }
+
+//...........................JWT Extractor...................................
+const JWTExtractor = function(req) {
+    let token = null;
+    if (req && req.cookies)
+    {
+        token = req.cookies['jwt'];
+    }
+    return token;
+};

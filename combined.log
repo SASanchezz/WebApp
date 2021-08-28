@@ -6,3 +6,19 @@
 {"message":"Fuck","level":"info","path":"server.js"}
 {"message":"Fuck","level":"info","path":"server.js"}
 {"message":"go on","level":"info","path":"routes\\SignIn.js"}
+{"message":"go on","level":"info","path":"routes\\SignIn.js"}
+{"message":"go on","level":"info","path":"routes\\SignIn.js"}
+{"message":"go on","level":"info","path":"routes\\SignIn.js"}
+{"message":"go on","level":"info","path":"routes\\SignIn.js"}
+{"message":"failure","level":"info","path":"routes\\SignIn.js"}
+{"message":"FUCK U","level":"info","path":"config\\passport.js"}
+{"message":"FUCK U","level":"info","path":"config\\passport.js"}
+{"message":"User not found","level":"info","path":"routes\\SignIn.js"}
+{"message":"User not found","level":"info","path":"routes\\SignIn.js"}
+{"message":"User not found","level":"info","path":"routes\\SignIn.js"}
+{"message":"User not found","level":"info","path":"routes\\SignIn.js"}
+{"message":"User not found","level":"info","path":"routes\\SignIn.js"}
+{"message":"User not found","level":"info","path":"routes\\SignIn.js"}
+{"message":"User not found","level":"info","path":"routes\\SignIn.js"}
+{"message":{"email":"sgrachov42@gmail.com","iat":1630004340,"exp":1630007940},"level":"info","path":"config\\passport.js"}
+{"message":{"email":"sgrachov42@gmail.com","iat":1630075804,"exp":1630079404},"level":"info","path":"config\\passport.js"}
