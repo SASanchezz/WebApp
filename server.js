@@ -22,38 +22,37 @@ const PORT = process.env.PORT ?? 3000
 async function start(){
     // Initialize JWT passport
     app.use(passport.initialize())
-    // app.use(passport.session())     //for session
+    app.use(passport.session())     //for session
     require('./config/passport')(passport)
 
     // Add parser for ejs
     app.use(express.json())
     app.use(express.urlencoded({extended: true }))
-//____________________________________________________________________
-    //Session options
-    // app.use(session({ //for session
-    //     secret: '_Sanchez_',
-    //     key: 'SomeKey',
-    //     cookie: {
-    //         // secure: true,
-    //         path: '/',
-    //         httpOnly: true,
-    //         maxAge: 24 * 60 * 60 * 1000 // Age of sessions is 1 day
-    //     },
-    //     resave: false,
-    //     saveUninitialized: false,
-    //     store: MongoStore.create({mongoUrl: "mongodb://localhost:27017/mydb"})
-    // }))
+
+//_____________________Session options___________________________
+    app.use(session({ //for session
+        secret: '_Sanchez_',
+        key: 'SomeKey',
+        cookie: {
+            // secure: true,
+            path: '/',
+            httpOnly: true,
+            maxAge: 24 * 60 * 60 * 1000 // Age of sessions is 1 day
+        },
+        resave: false,
+        saveUninitialized: false,
+        store: MongoStore.create({mongoUrl: "mongodb://localhost:27017/mydb"})
+    }))
     app.use(cookieParser())  //for cookie
 
     Routes(app); // Add all routes of site
-//____________________________________________________________________
-    //Set some default packages
+
+//_______________________Set some default packages_____________________________
     app.set('view engine', 'ejs')
     app.set('views', path.resolve(__dirname, 'templates'))
     app.use(express.static(path.resolve(__dirname, 'public')))
 
-//____________________________________________________________________
-    //Set Websocket (Socket-io)
+//___________________Set Websocket (Socket-io)__________________________
     require('./WebSocket/Socket-io')(server);
 
 

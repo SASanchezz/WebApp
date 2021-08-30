@@ -2,12 +2,60 @@ const User = require('../Mongo/UserDB')
 const config = require('./config')
 const path = require('path')
 const logger = require('../logging/logger')(path.join(__filename))
-const bcrypt = require("bcrypt")
+const UserDB = require("../Mongo/UserDB")
 
-const JwtStrategy = require('passport-jwt').Strategy,
-    ExtractJwt = require('passport-jwt').ExtractJwt;
+//...........................Strategies..............................
+const JwtStrategy = require('passport-jwt').Strategy;
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
 
-module.exports = function (passport) {
+const ClientID = "14924120985-84dvuglgtidnd4eltuki0q6nm7dmb6gk.apps.googleusercontent.com"
+
+function googleStrategy (passport) {
+    passport.serializeUser((user, done) => {
+        logger.info('Serialize')
+
+        done(null, user.id);
+    });
+
+    passport.deserializeUser((id, done) => {
+        UserDB.findById(id).then(user => {
+            logger.info('Deserialize')
+            done(null, user);
+        });
+    })
+
+    passport.use(new GoogleStrategy({
+        scope: ['profile'],
+        clientID: ClientID,
+        clientSecret: config.clientSecret,
+        callbackURL: "/Menu"
+
+    }, function(accessToken, refreshToken, profile, done){
+        const authId = 'google:' + profile.id;
+        User.findOne({ authId: authId }, function(err, user){
+            if(err) return done(err, null);
+            if(user) return done(null, user);
+            user = new UserDB({
+                authId: authId,
+                name: profile.displayName,
+                created: Date.now(),
+            })
+                .save(function(err){
+                if(err) return done(err, null);
+                done(null, user);
+            });
+        });
+
+    }))
+
+}
+
+
+
+
+
+
+function jwtStrategy (passport) {
     const opts = {
         jwtFromRequest: JWTExtractor,
         secretOrKey: config.secret,
@@ -44,3 +92,7 @@ const JWTExtractor = function(req) {
     }
     return token;
 };
+
+module.exports = function (passport) {
+    return googleStrategy(passport)
+}

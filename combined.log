@@ -22,3 +22,7 @@
 {"message":"User not found","level":"info","path":"routes\\SignIn.js"}
 {"message":{"email":"sgrachov42@gmail.com","iat":1630004340,"exp":1630007940},"level":"info","path":"config\\passport.js"}
 {"message":{"email":"sgrachov42@gmail.com","iat":1630075804,"exp":1630079404},"level":"info","path":"config\\passport.js"}
+{"message":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNncmFjaG92NDJAZ21haWwuY29tIiwiaWF0IjoxNjMwMTU5NTU2LCJleHAiOjE2MzAxNTk2MTZ9.tvn-GcN3nbE_UO75h6T88Wxb-OzdqU9g7xLQ2KPb4ow","level":"info","path":"routes\\SignIn.js"}
+{"message":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNncmFjaG92NDJAZ21haWwuY29tIiwiaWF0IjoxNjMwMTU5NTU2LCJleHAiOjE2MzAxNTk2MTZ9.tvn-GcN3nbE_UO75h6T88Wxb-OzdqU9g7xLQ2KPb4ow","level":"info","path":"routes\\SignIn.js"}
+{"message":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNncmFjaG92NDJAZ21haWwuY29tIiwiaWF0IjoxNjMwMTU5NTcyLCJleHAiOjE2MzAxNTk2MzJ9.sF54HqIIdMsAKxYLh273UuN2B6mvYJR2p04husAzAno","level":"info","path":"routes\\SignIn.js"}
+{"message":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNncmFjaG92NDJAZ21haWwuY29tIiwiaWF0IjoxNjMwMTU5NzMzLCJleHAiOjE2MzAxNTk3OTN9.wNHJp3LJM2Lyw1P1pUQ8sn1VI---wgH8LE-H6IB340g","level":"info","path":"routes\\SignIn.js"}

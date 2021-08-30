@@ -12,9 +12,10 @@ const url = config.db;
 
 // Schema for our collection
 const userScheme = new Schema({
-    // _id: {
-    //     type: String
-    // },
+    authid: {
+        type: String,
+        required: false
+    },
     name: {
         type: String,
         required: true
@@ -22,14 +23,20 @@ const userScheme = new Schema({
     email: {
         type: String,
         unique: true,
-        required: true
+        required: false
     },
     password: {
-        type: String
+        type: String,
+        required: false
     },
     salt: {
         type: String,
-    }
+        required: false
+    },
+    created: {
+        type: Date,
+        required: false
+    },
 });
 
 // userScheme.methods.encryptPassword = function (password) {

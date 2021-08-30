@@ -35,7 +35,8 @@ router.post('/registration', async (req, res, next) => {
                             const unit = new UserDB({
                                 name: userName,
                                 email: email,
-                                password: Password1
+                                password: Password1,
+                                created: Date.now(),
                             })
 
                             unit.save(function(err){

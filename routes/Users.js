@@ -5,7 +5,7 @@ const UserDB = require("../Mongo/UserDB")
 const AuthCheck = require('../Middleware/AuthCheck')
 
 
-router.get('/users', AuthCheck, (req, res, next) => {
+router.get('/users', (req, res, next) => {
 
     UserDB.find({},  function (err, docs) {
         if (err) next(err)
@@ -13,7 +13,7 @@ router.get('/users', AuthCheck, (req, res, next) => {
             title: 'All users',
             active: 'Users',
             Database: docs,
-            userID: req.session.user
+            // userID: req.session.user
         })
     })
 

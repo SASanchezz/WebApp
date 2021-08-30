@@ -15,7 +15,7 @@
 <% Database.forEach(function (user) { %>
     <form action="/delete/<%=user._id.toString()%>" method = "POST">
 
-        <li class="user-list"><%= user.name +' - '+ user.email%> <button type="submit">X</button> </li>
+        <li class="user-list"><%= user.name +' - '+ user.created%> <button type="submit">X</button> </li>
     </form>
 <% }) %>
 </ul>

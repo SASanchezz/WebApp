@@ -3,11 +3,11 @@ const router = express.Router()
 const HttpError = require('../error/HttpError')
 const AuthCheck = require('../Middleware/AuthCheck')
 
-router.get('/Calculator', AuthCheck, (req, res, next) => {
+router.get('/Calculator', (req, res, next) => {
         res.render('Calculator', {
             title: 'Calculator',
             active: 'Calculator',
-            userID: req.session.user
+            // userID: req.session.user
         })
 })
 
