@@ -7,16 +7,15 @@ const jwt = require('jsonwebtoken');
 const config = require('../config/config')
 
 
-router.get('/Menu',
-    passport.authenticate('google'),
+router.get('/',
+    AuthCheck,
     (req, res, next) => {
+        res.render('Menu', {
+            title: 'Main page',
+            active: 'main'
+        })
+    // res.send('Authenticated');
 
-
-        // res.render('Menu', {
-        //     title: 'Main page',
-        //     active: 'main'
-        // })
-    res.send('Authenticated');
 })
 
 module.exports = router

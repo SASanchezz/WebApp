@@ -5,23 +5,19 @@ const AuthError = require('../error/AuthError')
 const AuthCheck = require('../Middleware/AuthCheck')
 
 
-router.get('/deletecookie', function(req, res){
-    res.clearCookie('__Host-GAPS')
-    res.send('deleted')
-});
 
-
-router.get('/logout', function(req, res){
+router.post('/logout', function(req, res){
+    res.clearCookie('jwt')
     req.logout();
-    res.redirect('/');
+    res.redirect('/SignIn');
 });
 
-router.post('/logout', AuthCheck, async (req, res, next) => {
-    await req.session.destroy()
-    res.redirect('/');
-
-
-})
+// router.post('/logout', AuthCheck, async (req, res, next) => {
+//     await req.session.destroy()
+//     res.redirect('/SignIn');
+//
+//
+// })
 
 
 

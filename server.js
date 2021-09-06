@@ -1,13 +1,14 @@
 const express = require("express");
 const app = express();
-const MongoStore = require('connect-mongo')
 //Parsers
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const path = require("path");
 //Local
-const session = require('express-session');
 const Routes = require("./routes/route")
+const config = require('./config/config')
+//Cookies
+const cookieSession = require('cookie-session');
 //Logger
 const logger = require('./logging/logger')(path.join(__filename))
 //Socket
@@ -15,37 +16,34 @@ const http = require('http')
 const server = http.createServer(app)
 //Passport
 const passport = require('passport')
-
 const PORT = process.env.PORT ?? 3000
-//____________________________________________________________________
-//Main function
+
+//_________________Main function_______________________________________
 async function start(){
     // Initialize JWT passport
-    app.use(passport.initialize())
-    app.use(passport.session())     //for session
+    app.use(cookieParser())
+
     require('./config/passport')(passport)
 
-    // Add parser for ejs
-    app.use(express.json())
-    app.use(express.urlencoded({extended: true }))
+    // Add parsers
+
+    app.use(bodyParser.json());
+    app.use(bodyParser.urlencoded({ extended: false }));
+
 
 //_____________________Session options___________________________
-    app.use(session({ //for session
-        secret: '_Sanchez_',
-        key: 'SomeKey',
-        cookie: {
-            // secure: true,
-            path: '/',
-            httpOnly: true,
-            maxAge: 24 * 60 * 60 * 1000 // Age of sessions is 1 day
-        },
-        resave: false,
-        saveUninitialized: false,
-        store: MongoStore.create({mongoUrl: "mongodb://localhost:27017/mydb"})
-    }))
-    app.use(cookieParser())  //for cookie
+    app.use(cookieSession({ //for session
+        maxAge: 24*60*60*1000,              // milliseconds of a day
+        keys: [config.secret]
+        // store: MongoStore.create({mongoUrl: "mongodb://localhost:27017/mydb"})
+    })
+    );
 
-    Routes(app); // Add all routes of site
+    app.use(passport.initialize())
+    app.use(passport.session())
+    // app.use(cookieParser())  //for cookie
+
+    Routes(app); // Add all routes of app
 
 //_______________________Set some default packages_____________________________
     app.set('view engine', 'ejs')

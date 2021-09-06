@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
+    <meta name="google-signin-client_id" content="YOUR_CLIENT_ID.apps.googleusercontent.com">
     <link rel = "stylesheet" href="css/StyleLog.css">
     <%- include('./partials/bootstrap'); %>
 
@@ -14,9 +15,13 @@
             <input  type="password" placeholder="password" name="password"/>
 
             <button type="submit" name="login-button" value="Log In">login</button>
-
-            <p class="message">Not registered? <a href="/Create">Create an account</a></p>
         </form>
+        <!--Google button-->
+        <form action="/google" method = "GET" class="login-form">
+            <button type="submit" name="login-button" value="Google In" style="margin-top:10px; background-color: cornflowerblue"> Sign up with google</button>
+        </form>
+                <!--Google button-->
+            <p class="message">Not registered? <a href="/Create">Create an account</a></p>
     </div>
 </div>
 

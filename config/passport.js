@@ -11,15 +11,14 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const ClientID = "14924120985-84dvuglgtidnd4eltuki0q6nm7dmb6gk.apps.googleusercontent.com"
 
 function googleStrategy (passport) {
-    passport.serializeUser((user, done) => {
-        logger.info('Serialize')
 
-        done(null, user.id);
+    passport.serializeUser((user, done) => {
+        done(null, user.authId);
     });
 
-    passport.deserializeUser((id, done) => {
-        UserDB.findById(id).then(user => {
-            logger.info('Deserialize')
+    passport.deserializeUser((authId, done) => {
+        UserDB.findOne({authId: authId}, (err, user) => {
+            if (err) return done(err, null);
             done(null, user);
         });
     })
@@ -28,25 +27,29 @@ function googleStrategy (passport) {
         scope: ['profile'],
         clientID: ClientID,
         clientSecret: config.clientSecret,
-        callbackURL: "/Menu"
-
+        callbackURL: '/auth/google/callback',
     }, function(accessToken, refreshToken, profile, done){
+
         const authId = 'google:' + profile.id;
         User.findOne({ authId: authId }, function(err, user){
-            if(err) return done(err, null);
-            if(user) return done(null, user);
+            if (err) return done(err, null);
+            if (user) {
+                return done(null, user);
+            }
             user = new UserDB({
                 authId: authId,
                 name: profile.displayName,
                 created: Date.now(),
             })
-                .save(function(err){
+            user.save(function(err){
                 if(err) return done(err, null);
                 done(null, user);
             });
         });
 
     }))
+
+
 
 }
 
@@ -71,12 +74,8 @@ function jwtStrategy (passport) {
                 done(err, false);
             }
             if (user) {
-
-
                 done(null, user);
             } else {
-                logger.info('failure')
-
                 done(null, false);
             }
         });
@@ -93,6 +92,7 @@ const JWTExtractor = function(req) {
     return token;
 };
 
-module.exports = function (passport) {
-    return googleStrategy(passport)
+module.exports = (passport) => {
+    jwtStrategy(passport)
+    googleStrategy(passport)
 }

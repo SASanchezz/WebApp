@@ -5,6 +5,8 @@ const Register = require('./Register')
 const Delete = require('./Delete')
 const Users = require('./Users')
 const SignOut = require('./SignOut')
+const Google = require('./auth/google')
+
 
 
 const ErrorHandler = require('../Middleware/ErrorHandler')
@@ -20,6 +22,7 @@ module.exports = function(app) {
     app.use(Users);
     app.use(Register);
     app.use(Delete);
+    app.use(Google);
 
 
     app.use(ErrorHandler)

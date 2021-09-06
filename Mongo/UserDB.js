@@ -12,7 +12,7 @@ const url = config.db;
 
 // Schema for our collection
 const userScheme = new Schema({
-    authid: {
+    authId: {
         type: String,
         required: false
     },
@@ -39,11 +39,6 @@ const userScheme = new Schema({
     },
 });
 
-// userScheme.methods.encryptPassword = function (password) {
-//     bcrypt.hash(password, saltRounds, function(err, hash) {
-//         return hash
-//     });
-// };
 
 userScheme.pre('save', function (next) {
     const user = this;
@@ -65,29 +60,11 @@ userScheme.pre('save', function (next) {
     });
 })
 
-userScheme.statics.Authorize = (email, password, callback) => {
-    UserDB.findOne({email: email}, (err, user) => {
-            if(err) {
-                throw err;
-            }
-            if(user){
 
-                bcrypt.compare(password, user.password, (err, response) => {
-                    if (err) return callback(new HttpError(404, 'Something went wrong' ), null)
-                    if (!response) return callback(403, null)
-
-                    return callback(null, user)
-                })
-            } else return callback(403, null)
-        })
-}
-
-
-
-global.db = mongoose.connect(url, { // mongodb+srv://Sanchez:7539512Sanchez@cluster0.vgvcx.mongodb.net/WebApp
+global.db = mongoose.connect(url, {
     useUnifiedTopology: true,
     useNewUrlParser: true
-}).then(r => console.log('BD Connected'));
+}).then(r => console.log('DB Connected'));
 
 
 
