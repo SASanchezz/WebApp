@@ -1,7 +1,7 @@
 const express = require("express")
 const router = express.Router()
 const HttpError = require('../error/HttpError')
-const UserDB = require("../Mongo/UserDB")
+const UserDB = require("../Mongo/DB").Users
 const AuthCheck = require('../Middleware/AuthCheck')
 
 

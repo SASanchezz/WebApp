@@ -5,6 +5,8 @@ const Register = require('./Register')
 const Delete = require('./Delete')
 const Users = require('./Users')
 const SignOut = require('./SignOut')
+const Discussions = require('./Discussions')
+
 const Google = require('./auth/google')
 
 
@@ -22,6 +24,8 @@ module.exports = function(app) {
     app.use(Users);
     app.use(Register);
     app.use(Delete);
+    app.use(Discussions);
+
     app.use(Google);
 
 

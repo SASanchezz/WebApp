@@ -8,10 +8,10 @@ module.exports = function errorHandler(err, req, res, next) {
             res.render('error', {error: err})
 
         } else if (err instanceof AuthError) {
-            err.status = 403
             res.status(403)
             res.render('error', {error: err })
-
+        } else {
+            res.render('error', {error: err })
         }
 
 

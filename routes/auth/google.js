@@ -11,7 +11,7 @@ const logger = require('../../logging/logger')(path.join(__filename))
 //Errors
 const HttpError = require('../../error/HttpError')
 //Interacting with DB
-const UserDB = require("../../Mongo/UserDB")
+const UserDB = require("../../Mongo/DB").Users
 const bcrypt = require("bcrypt");
 
 

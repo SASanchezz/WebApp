@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <link rel = "stylesheet" href="css/DiscussionsSheet.css">
+    <%- include('./partials/bootstrap'); %>
+
+    <title><%=title%></title>
+</head>
+<body><back>
+
+    <div class="topics">
+    <%if (topics.length == 0) { %>
+         <p> No topics yet :c </p>
+    <%} else {%>
+        <%topics.forEach(topic => {%>
+             <div class="topic"> <p ><%=topic.Name %></p> </div>
+        <%})}%>
+    </div>
+    <form class="create-topic" action="/createTopic" method="POST">
+        <button class="create-topic-button" type="submit" name="topic-button">Create topic</button>
+        <input type="text" placeholder="name" name="UserName"/>
+    </form>
+
+</back></body>
+</html>

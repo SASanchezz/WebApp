@@ -1,8 +1,8 @@
-const User = require('../Mongo/UserDB')
+const User = require('../Mongo/DB')
 const config = require('./config')
 const path = require('path')
 const logger = require('../logging/logger')(path.join(__filename))
-const UserDB = require("../Mongo/UserDB")
+const UserDB = require("../Mongo/DB").Users
 
 //...........................Strategies..............................
 const JwtStrategy = require('passport-jwt').Strategy;

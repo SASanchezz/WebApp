@@ -1,18 +1,23 @@
 const express = require("express")
+const url = require('url');
 const router = express.Router()
 const HttpError = require('../error/HttpError')
 
-const UserDB = require("../Mongo/UserDB")
+const UserDB = require("../Mongo/DB").Users
 
-const ValidateEmail = require('./validators').ValidateEmail;
-const ValidatePassword = require('./validators').ValidatePassword;
-const ValidateUserName = require('./validators').ValidateUserName;
+const path = require('path');
+const logger = require('../logging/logger')(path.join(__filename))
+
+const ValidateEmail = require('../utils/validators').ValidateEmail;
+const ValidatePassword = require('../utils/validators').ValidatePassword;
+const ValidateUserName = require('../utils/validators').ValidateUserName;
 
 
 router.get('/Create', (req, res, next) => {
         res.render('Register', {
             title: 'Create account',
-            active: 'create'
+            active: 'create',
+            errorMessage: req.flash('errMessage')
         })
 })
 
@@ -23,16 +28,14 @@ router.post('/registration', async (req, res, next) => {
         const Password2 = req.body.password2
 
 
-        if (userName.length > 0 && Password1.length > 0 && email.length > 0 && Password2.length > 0) {
-
-
-            if (ValidateEmail(email) && ValidateUserName(userName) && ValidatePassword(Password1)) {
+        if (userName.length > 0 && Password1.length > 0 && email.length > 0 && Password2.length > 0) { // If areas are not null
+            if (ValidateEmail(email) && ValidateUserName(userName) && ValidatePassword(Password1)) { // email, password, name corresponds to normal
                 if (Password1 === Password2) {
                     UserDB.count({email: email}, (err, count) => {
                         if (err) throw err;
 
-                        if (count === 0) {
-                            const unit = new UserDB({
+                        if (count === 0) {  //If such email wasn't found
+                            const unit = new UserDB({ //Create new record in db
                                 name: userName,
                                 email: email,
                                 password: Password1,
@@ -45,7 +48,13 @@ router.post('/registration', async (req, res, next) => {
                             });
 
                             res.redirect('/');
-                        } else res.redirect(req.get('referer'));
+
+                        } else {
+                            logger.info('found')
+                            // res.statusCode = 420
+                            req.flash('errMessage', 'Email already registered'),
+                            res.redirect(req.get('referer'));
+                        } //If such email wasn't found
                     })
                 } else {
                     res.redirect(req.get('referer'));

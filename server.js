@@ -9,6 +9,7 @@ const Routes = require("./routes/route")
 const config = require('./config/config')
 //Cookies
 const cookieSession = require('cookie-session');
+const flash = require('connect-flash');
 //Logger
 const logger = require('./logging/logger')(path.join(__filename))
 //Socket
@@ -22,7 +23,7 @@ const PORT = process.env.PORT ?? 3000
 async function start(){
     // Initialize JWT passport
     app.use(cookieParser())
-
+    app.use(flash())
     require('./config/passport')(passport)
 
     // Add parsers

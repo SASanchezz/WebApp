@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken")
 const HttpError = require('../../error/HttpError')
 const AuthError = require('../../error/AuthError')
 //Interacting with DB
-const UserDB = require("../../Mongo/UserDB")
+const UserDB = require("../../Mongo/DB").Users
 const bcrypt = require("bcrypt");
 //Logger
 const path = require('path')

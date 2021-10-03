@@ -61,13 +61,48 @@ userScheme.pre('save', function (next) {
 })
 
 
+
+const topicScheme = new Schema({
+    CreatorId: {
+        type: String,
+        required: true
+    },
+    Name: {
+        type: String,
+        required: true
+    },
+    Date: {
+        type: Date,
+        required: true
+    }
+})
+
+const comments = new Schema({
+    CreatorId: {
+        type: String,
+        required: true
+    },
+    TopicId: {
+        type: String,
+
+    }
+})
+
+
+
 global.db = mongoose.connect(url, {
     useUnifiedTopology: true,
     useNewUrlParser: true
-}).then(r => console.log('DB Connected'));
+}).then(r => {
+
+    console.log('DB Connected')
+});
+
+
+const Users = mongoose.model("User", userScheme)
+const Topics = mongoose.model("Topic", topicScheme)
+const Comments = mongoose.model("comment", comments)
 
 
 
-
-
-const UserDB = module.exports = mongoose.model("User", userScheme);
+module.exports = {Users, Topics, Comments};
